@@ -1,7 +1,0 @@
-eclipse.m2.WorkspacelifecycleMappingsLocation=/Users/benli/Documents/workspace/.metadata/.plugins/org.eclipse.m2e.core/lifecycle-mapping-metadata.xml
-eclipse.m2.defaultRuntime=EMBEDDED
-eclipse.m2.runtimes=apache-maven-3.2.5
-eclipse.m2.runtimesNodes/apache-maven-3.2.5/location=/usr/local/apache-maven-3.2.5
-eclipse.m2.runtimesNodes/apache-maven-3.2.5/type=EXTERNAL
-eclipse.m2.warn_incomplete_mapping=true
-eclipse.preferences.version=1
