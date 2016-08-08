@@ -1,6 +1,6 @@
 
 
-function Game(size, numberOfObstacle, htmlElementToRender, isMachinePlay) {
+function SnakeGame(size, numberOfObstacle, htmlElementToRender, isMachinePlay) {
 
 
 
@@ -9,7 +9,7 @@ function Game(size, numberOfObstacle, htmlElementToRender, isMachinePlay) {
   this.size = size;
   this.numberOfObstacle = numberOfObstacle;
   this.isMachinePlay = isMachinePlay;
-  var growAfterThisMove = 50;
+  var growAfterThisMove = 5;
   var elementSize = 5;
 
   var NORTH = [0, -1];
@@ -63,7 +63,7 @@ function Game(size, numberOfObstacle, htmlElementToRender, isMachinePlay) {
     }
     return true;
   }
-  function Snake(x, y){
+  function SnakeBody(x, y){
     this.x = x;
     this.y = y;
   }
@@ -98,10 +98,10 @@ function Game(size, numberOfObstacle, htmlElementToRender, isMachinePlay) {
     clear();
     var center = size/2;
 
-    var snakeBody = new Snake(center,center-1);
+    var snakeBody = new SnakeBody(center,center-1);
 
     snake.push(snakeBody);
-    snake.push(new Snake(center,center));
+    snake.push(new SnakeBody(center,center));
   }
   function generateRandomDirections() {
     var number = Math.trunc(Math.random() * 100) % allPossibleDirections.length;
@@ -136,7 +136,7 @@ function Game(size, numberOfObstacle, htmlElementToRender, isMachinePlay) {
         throw new Error("GAME OVER");
       }
     }
-    var s = new Snake(oldHead.x + currentDirection[0], oldHead.y + currentDirection[1]);
+    var s = new SnakeBody(oldHead.x + currentDirection[0], oldHead.y + currentDirection[1]);
     snake.unshift(s);
     if (totalMove % growAfterThisMove != 0) {
       snake.pop();
@@ -198,14 +198,14 @@ function Game(size, numberOfObstacle, htmlElementToRender, isMachinePlay) {
       }
 
       display();
-    }).bind(this), 50);
+    }).bind(this), 20);
   }
 }
 
 
-var game = new Game(100, 184,'game', false);
+var game = new SnakeGame(100, 184,'game', true);
 game.start();
-var machine = new Game(100, 100, 'machine', true);
+var machine = new SnakeGame(100, 150, 'machine', true);
 machine.start();
 
 
