@@ -8,7 +8,8 @@ function Tetrix (size, htmlElementToRender){
     var plate = [];
 
     var SHAPE_SIZE = 20;
-
+    var currentShape;
+    var currentDirection;
     function Shape(x, y) {
         this.x = x;
         this.y = y;
@@ -106,11 +107,11 @@ function Tetrix (size, htmlElementToRender){
         }
       }
     }
-    function move(currentShape, direction) {
+    function move() {
       var nextMove = [];
       var success = true;
       currentShape.forEach(function(shape) {
-        nextMove.push(new Shape(shape.x + direction[0] ,shape.y + direction[1]));
+        nextMove.push(new Shape(shape.x + currentDirection[0] ,shape.y + currentDirection[1]));
       });
 
       var effectiveShape = removeSameElementFrom(nextMove, currentShape);
@@ -127,7 +128,19 @@ function Tetrix (size, htmlElementToRender){
         return currentShape;
       }
     }
+    function registerUserInput() {
+      window.addEventListener( "keypress", onKeyPress, false );
+    }
+    function onKeyPress(e) {
+    if (e.key == 'a') {
+      currentDirection = LEFT;
+    }else if (e.key == 'd') {
+      currentDirection = RIGHT;
+    }else if (e.key == 's'){
+      currentDirection = DOWN;
+    }
 
+  }
     function removeSameElementFrom(from, shapeChekers) {
       var shapes = from.filter(function (shape) {
         return !shapeChekers.find(function(c) {
@@ -156,8 +169,6 @@ function Tetrix (size, htmlElementToRender){
       currentShape.forEach(function(shape) {
         plate[shape.x][shape.y] = shape;
       });
-
-
     }
     function display(){
       var canvas = document.getElementById(htmlElementToRender);
@@ -180,19 +191,24 @@ function Tetrix (size, htmlElementToRender){
       initialize();
       var shape = null;
       var canMove = false;
+      registerUserInput();
       var interval = setInterval(function() {
         if (canMove == false){
           clearRow();
-          shape = getNextShape();
+          currentShape = getNextShape();
+          currentDirection = DOWN;
         }
-        var movedShape = move(shape, DOWN);
-        if (isEqual(movedShape, shape) ==false) {
+
+        var movedShape = move();
+
+        if (isEqual(movedShape, currentShape) ==false || isEqual(currentDirection, DOWN) == false) {
           canMove = true;
-          toPlate(shape, movedShape);
-          shape = movedShape;
+          toPlate(currentShape, movedShape);
+          currentShape = movedShape;
         }else {
           canMove = false;
         }
+        currentDirection = DOWN;
         display();
       }, 200);
 
@@ -204,4 +220,3 @@ function Tetrix (size, htmlElementToRender){
   var tetrix = new Tetrix(20, "tetrix");
   tetrix.start();
 })();
-

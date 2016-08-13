@@ -1,10 +1,6 @@
 
 
 function SnakeGame(size, numberOfObstacle, htmlElementToRender, isMachinePlay) {
-
-
-
-
   this.htmlElementToRender = htmlElementToRender;
   this.size = size;
   this.numberOfObstacle = numberOfObstacle;
@@ -202,23 +198,8 @@ function SnakeGame(size, numberOfObstacle, htmlElementToRender, isMachinePlay) {
   }
 }
 
-
-var game = new SnakeGame(100, 184,'game', true);
+var machinePlay = true;
+var game = new SnakeGame(100, 184,'game', machinePlay);
 game.start();
-var machine = new SnakeGame(100, 150, 'machine', true);
+var machine = new SnakeGame(100, 150, 'machine', machinePlay);
 machine.start();
-
-
-/*
-* north = 0;
-* east = 90
-* south = 180;
-* west = 270;
-
-[0][0][0]
-[0][0][0]
-[0][0][0]
-
-
-[0][90][180]
-*/
